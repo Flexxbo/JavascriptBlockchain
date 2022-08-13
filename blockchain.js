@@ -1,4 +1,5 @@
 const SHA256 = require('js-sha256')
+const Block = require('./block')
 
 class Blockchain {
     constructor(genesisBlock) {
@@ -13,6 +14,13 @@ class Blockchain {
         }
 
         this.blocks.push(block)
+    }
+
+    getNextBlock([transactions]){
+        let block = new Block()
+        transactions.forEach((transaction)=>{
+            block.addTransaction
+        })
     }
 
     generateHash(block){
