@@ -16,15 +16,35 @@ class Blockchain {
         this.blocks.push(block)
     }
 
-    getNextBlock([transactions]){
+    getNextBlock(transactions){
         let block = new Block()
         transactions.forEach((transaction)=>{
-            block.addTransaction
+            block.addTransaction(transaction)
         })
+
+        let previousBlock = this.getPreviousBlock()
+        block.index = this.blocks.length
+        block.previousHash = previousBlock.hash
+        block.hash = this.generateHash(block)
+
+        return block
+    }
+
+    getPreviousBlock() {
+        return this.blocks[this.blocks.length - 1]
     }
 
     generateHash(block){
-        const hash = SHA256(block.key)
+        let hash = SHA256(block.key)
+
+        while(!hash.startsWith('0000')){
+            block.nonce += 1
+            hash = SHA256(block.key)
+            console.log(hash)
+        }
+
+
+
         return hash
 
     }
