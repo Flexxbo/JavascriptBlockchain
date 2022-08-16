@@ -5,6 +5,19 @@ const Transaction = require('./transaction')
 const express = require('express')
 const app = express()
 
+let transactions = []
+
+app.post('/transactions', (req, res) =>{
+
+    const from =req.body.from
+    const to = req.body.to    
+    const amount = req.body.amount
+
+    let transaction = new Transaction(from, to, amount)
+    transactions.push(transaction)
+
+    res.json(transactions)
+ })
 
 app.get('/blockchain', (req,res)=> {
 
@@ -16,7 +29,7 @@ app.get('/blockchain', (req,res)=> {
     let block = blockchain.getNextBlock([transaction])
     blockchain.addBlock(block)
     
-    let anotherTransaction = new Transaction('Steven', 'Brianna', 580)
+    let anotherTransaction = new Transaction('Steven', 'Brianna', 1580)
     let block1 = blockchain.getNextBlock([anotherTransaction])
     blockchain.addBlock(block1)
 
