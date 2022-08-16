@@ -5,13 +5,22 @@ const Transaction = require('./transaction')
 const express = require('express')
 const app = express()
 
+const arguments = process.argv
+let PORT = 8080
+
+if (arguments.length > 2){
+
+    PORT = arguments[2]
+}
+//console.log(process.argv)
+
 //body parser for JSON
 app.use(express.json())
 
 let transactions = []
 
 let genesisBlock = new Block()
-let blockchain = new Blockchain(genesisBlock)
+//let blockchain = new Blockchain(genesisBlock)
 
 app.post('/transactions', (req, res) =>{
 
@@ -25,10 +34,11 @@ app.post('/transactions', (req, res) =>{
     res.json(transactions)
  })
 
- app.get('mine', (req,res)=>{
+ app.get('/mine', (req,res)=>{
     let block = blockchain.getNextBlock(transactions)
     blockchain.addBlock(block)
     res.json(block)
+    transactions = []
  })
 
 app.get('/blockchain', (req,res)=> {
@@ -49,7 +59,7 @@ app.get('/blockchain', (req,res)=> {
 
 })
 
-app.listen(8080, () =>{console.log('Server is running')})
+app.listen(PORT, () =>{console.log('Server is running on Port:' + PORT)})
 
 
 
