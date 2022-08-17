@@ -36,7 +36,7 @@ app.get('/resolve', (req,res)=>{
         .then(otherBlockchain => {
 
             if(blockchain.blocks.length < otherBlockchain.blocks.length){
-                transactions = []
+                //transactions = []
                 allTransactions.forEach(transaction => { 
 
                     fetch(`${node.url}/transactions`, {
@@ -104,11 +104,12 @@ app.post('/transactions', (req, res) =>{
     transactions.forEach(transaction => {
         allTransactions.push(transaction)
     })
+    /*
     console.log('das ist transactions aus mine vor Löschung' + transactions)
     console.log('das ist alltransactions aus mine' + allTransactions)
     transactions = []
     console.log('das ist transactions aus mine' + transactions)
-    console.log('das ist alltransactions aus mine' + allTransactions)
+    console.log('das ist alltransactions aus mine' + allTransactions) */
     res.json(block)
  })
 
